@@ -26,7 +26,7 @@ source "amazon-ebs" "nomad" {
   region = var.region
 
   source_ami_filter {
-      filters {
+      filters ={
           name = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
           root-device-type = "ebs"
           virtualization-type = "hvm"
