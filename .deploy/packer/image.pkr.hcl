@@ -17,7 +17,7 @@ locals {
 }
 
 
-source "amazon_ebs" "nomad" {
+source "amazon-ebs" "nomad" {
   ami_name = "nomad-ec2-${local.timestamp}"
   instance_type = "t2.micro"
   region = var.region
@@ -29,13 +29,13 @@ source "amazon_ebs" "nomad" {
           virtualization-type = "hvm"
       }
       most_recent = true
-      owners = ["3434343434554"]
+      owners = ["679593333241"]
   }
   ssh_username = "ubuntu"
 }
 
 build {
- sources = ["source.amazon_ebs.nomad"]
+ sources = ["source.amazon-ebs.nomad"]
 
  provisioner "shell" {
      environment_vars = [
