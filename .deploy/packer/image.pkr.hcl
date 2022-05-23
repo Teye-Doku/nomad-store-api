@@ -6,7 +6,7 @@ variable "region" {
 
 variable "docker_username" {
     type = string
-    default = "courageabam"
+    default= courageabam
     description = "The Docker username"
 }
 variable "docker_password" {
