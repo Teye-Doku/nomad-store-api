@@ -25,7 +25,7 @@ source "amazon_ebs" "nomad" {
   source_ami_filter {
       filters {
           name = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
-          root-device-type = "ebs",
+          root-device-type = "ebs"
           virtualization-type = "hvm"
       }
       most_recent = true
