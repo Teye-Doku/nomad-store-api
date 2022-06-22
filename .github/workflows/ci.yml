@@ -36,6 +36,7 @@ jobs:
           status: ${{ job.status }}
           steps: ${{ toJson(steps) }}
           channel: '#devops'
+          message: 'Test runned'
         if: always() 
 
   build-and-push-docker-image:
