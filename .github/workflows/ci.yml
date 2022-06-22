@@ -56,4 +56,5 @@ jobs:
         run: cd .deploy/packer && packer validate image.pkr.hcl
       - name: build packer image
         run: cd .deploy/packer && packer build image.pkr.hcl  
+     
 

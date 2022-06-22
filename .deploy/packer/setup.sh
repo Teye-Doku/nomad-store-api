@@ -27,3 +27,5 @@ sudo docker run hello-world
 sudo docker login --username $USERNAME --password $PASSWORD
 sudo docker pull courageabam/nomad  
 
+
+

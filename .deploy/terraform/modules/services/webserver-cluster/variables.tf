@@ -55,3 +55,10 @@ variable "max_size" {
 variable "log_profile_name" {
   description = "log profile for aws instance"
 }
+
+variable "dns_name" {
+  type =  string
+}
+variable "dns_hosted_zone" {
+  type = string
+}

@@ -257,3 +257,69 @@ resource "aws_lb_listener_rule" "asg-http" {
      }
   }
 }
+
+
+# iam policy for each ec2-instance
+resource "aws_iam_policy" "policy" {
+  name        = "nomad-policy"
+  description = "EC2 policy for sending logs to cloudwatch"
+
+  policy      = jsonencode({
+    "Version":"2012-10-17",
+    "Statement": [
+      {
+        "Action":[
+          "autoscaling:Describe*",
+          "cloudwatch:*",
+          "logs:*",
+          "sns:*",
+          "iam:getPolicy",
+          "iam:getPolicyVersion",
+          "iam:getRole"
+        ],
+        "Effect":"Allow",
+        "Resource": "*"
+      },
+      {
+        "Effect":"Allow",
+        "Action":"iam:CreateServiceLinkedRole",
+        "Resource":"arn:aws:iam::*:role/aws-service-role/events.amazonaws.com/AWSServiceRoleForCloudWatchEvents*",
+        "Condition": {
+           "StringLike":{
+             "iam:AWSServiceName":"events.amazonaws.com"
+           }
+        }
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role" "role" {
+  name               = "nomad-role"
+  assume_role_policy = jsonencode({
+    "Version":"2012-10-17",
+    "Statement":[
+      {
+        "Effect":"Allow",
+        "Action":[
+          "sts:AssumeRole"
+        ],
+        "Principal":{
+           "Service":[
+             "ec2.amazonaws.com"
+           ]
+        }
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "attach-role" {
+  role       = aws_iam_role.role.name 
+  policy_arn = aws_iam_policy.policy.arn 
+}
+#nomad profile log
+resource "aws_iam_instance_profile" "nomad_log_profile" {
+  name = var.log_profile_name
+  role = aws_iam_role.role.name 
+}
